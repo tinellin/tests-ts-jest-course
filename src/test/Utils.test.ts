@@ -1,5 +1,6 @@
-import { getStringInfo, toUpperCase } from "../app/Utils";
+import { StringUtils, getStringInfo, toUpperCase } from "../app/Utils";
 
+/* basic test */
 describe("Utils test suite", () => {
   it("should return uppercase of valid string", () => {
     // arrange:
@@ -14,6 +15,7 @@ describe("Utils test suite", () => {
   })
 })
 
+/* encapsulated tests when very large and logically complex */
 describe("getStringInfo for arg My-String should", () => {
   test("return right lowercase", () => {
     const actual = getStringInfo("My-String")
@@ -69,7 +71,39 @@ describe("ToUpperCase examples", () => {
   })
 })
 
-/* 
-  * No Jest, usamos (assertion) Matchers.toBe para tipos primitivos
-  * Para estruturas de dados mais complexas, e.g. objetos usamos o .toEqual
-*/
+/* using jest hooks */
+describe("Utils test suite (2)", () => {
+  let sut: StringUtils
+
+  beforeEach(() => {
+    sut = new StringUtils();
+    console.log("Setup");
+  })
+
+  afterEach(() => {
+    // can be used to clean mocks
+    console.log("Teardown");
+  })
+
+  it("Should throw error on invalid argument - function", () => {
+    function expectError() { sut.toUpperCase(""); }
+    expect(expectError).toThrow("Invalid argument!");
+  })
+
+  it("Should throw error on invalid argument - arrow function", ()=>{      
+    expect(() => { sut.toUpperCase(""); }).toThrow("Invalid argument!");
+  })
+
+  // best fit
+  it("Should throw error on invalid argument - try catch block", (done)=>{             
+    try {
+      sut.toUpperCase("");
+      // need to use "done" to say that the test ended with an error
+      done("GetStringInfo should throw error for invalid arg!")
+    } catch (error) {
+        expect(error).toBeInstanceOf(Error);
+        expect(error).toHaveProperty("message", "Invalid argument!");
+        done();
+    }
+  })
+}) 
