@@ -12,22 +12,40 @@ describe("Utils test suite", () => {
     // assertion:
     expect(actual).toBe(expected)
   })
+})
 
-  it("should return info for valid string", () => {
+describe("getStringInfo for arg My-String should", () => {
+  test("return right lowercase", () => {
     const actual = getStringInfo("My-String")
-
     expect(actual.lowercase).toBe("my-string")
-    expect(actual.uppercase).toBe("MY-STRING")
-    expect(actual.extraInfo).toEqual({})
+  });
 
+  test("return right uppercase", () => {
+    const actual = getStringInfo("My-String")
+    expect(actual.uppercase).toBe("MY-STRING")
+  })
+
+  test("return right length", () => {
+    const actual = getStringInfo("My-String")
     expect(actual.length).toBe(9)
     // other way:
     expect(actual.characters).toHaveLength(9)
+  })
 
+  test("return right extrainfo", () => {
+    const actual = getStringInfo("My-String")
+    expect(actual.extraInfo).toEqual({})
+  })
+
+  test ("return right characters", () => {
+    const actual = getStringInfo("My-String")
     expect(actual.characters).toEqual(['M', 'y', '-', 'S', 't', 'r', 'i', 'n', 'g'])
     expect(actual.characters).toContain<string>('M')
     expect(actual.characters).toEqual(expect.arrayContaining(['S', 't', 'r','i', 'n', 'g', 'M', 'y', '-']))
+  })
 
+  test("return defined extraInfo", () => {
+    const actual = getStringInfo("My-String")
     // first way:
     expect(actual.extraInfo).not.toBe(undefined)
     // second way:
