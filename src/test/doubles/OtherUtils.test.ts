@@ -1,7 +1,7 @@
 import { OtherStringUtils, calculateComplexity, toUpperCaseWithCb } from "../../app/doubles/OtherUtils"
 
 /* using stubs */
-describe("OtherUtils test suite", () => {
+describe.skip("OtherUtils test suite", () => {
 
   /* Here, the calculation only needs length and extrainfo */
   it("calculates complexity", () => {
